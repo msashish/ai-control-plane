@@ -23,16 +23,25 @@
 
     Note: I am avoiding direct huggingface url. Hence router loads laya_weights directory. 
 
-3. **Run classifier test**
+3. **Run basic classifier test**
 
     ```bash
     HF_HUB_OFFLINE=1 python test.py
     ```
 
-## Local UI run
+## Run basic UI
 
     ```bash
     uv run streamlit run lite.py
     ```
 
     open at http://localhost:8501
+
+## Run fastapi
+
+    ```bash
+    uv run fastapi dev
+
+    ..or in production mode..
+    uv run fastapi run
+    ```
