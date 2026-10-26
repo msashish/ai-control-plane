@@ -45,3 +45,8 @@
     ..or in production mode..
     uv run fastapi run
     ```
+
+    Try a prompt at:
+        http://localhost:8000/docs#/default/classify_prompt_prompt_classification_post
+        
+
