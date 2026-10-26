@@ -21,7 +21,7 @@ def get_recommended_model(tier: str) -> str:
     return MODEL_TIER_MAP[tier]
 
 router = Router(models={"english": str(MODEL_DIR)})
-questions = {**needs_rag, **model_tier, **reasoning_depth, **vulnerable}
+questions = {**needs_rag, **vulnerable, **model_tier, **reasoning_depth}
 
 def route(prompt, questions=questions):
     """Select the appropriate model based on the prompt and questions."""

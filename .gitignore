@@ -2,3 +2,4 @@
 /models/
 router/__pycache__/
 **/__pycache__/**
+router/__pycache__/*

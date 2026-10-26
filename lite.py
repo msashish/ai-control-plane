@@ -49,7 +49,7 @@ with summary_column:
     else:
         summary = classification["summary"]
         if classification["flagged"]:
-            st.warning("⚠️ Poetntial unsafe content. Please review the content before proceeding.")
+            st.warning("⚠️ Potential unsafe content. Please review the content before proceeding.")
         else:
             st.success("✅ No safety issues flagged.")
         st.caption(f"Results for last submitted prompt:")
