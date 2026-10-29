@@ -37,11 +37,16 @@
 3. Start model inference server
 
     Using Ollama:
-        Start Ollama server and register local model
-            OLLAMA_HOST="127.0.0.1:8081" ollama serve
 
-        From another terminal:
-            OLLAMA_HOST="127.0.0.1:8081" ollama create my-qwen -f ./Modelfile
+        Short-cut:
+            make run-ollama
+
+        Long-route:
+            Start Ollama server and register local model
+                OLLAMA_HOST="127.0.0.1:8081" ollama serve
+
+            From another terminal:
+                OLLAMA_HOST="127.0.0.1:8081" ollama create my-qwen -f ./Modelfile
 
         Test run
             OLLAMA_HOST="127.0.0.1:8081" ollama run my-qwen

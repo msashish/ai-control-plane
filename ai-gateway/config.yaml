@@ -1,9 +1,10 @@
 model_list:
-  - model_name: qwen-local            # The alias you want to call via API
+  - model_name: qwen-local            
     litellm_params:
-      model: ollama/my-qwen          # Tells litellm to use ollama + your registered name
-      api_base: http://localhost:8081 # Points directly to your custom port
+      model: ollama/my-qwen          
+      api_base: http://localhost:8081 
   - model_name: gpt-6.1-sol
     litellm_params:
       model: openai/gpt-6.1-sol
       api_key: os.environ/OPENAI_API_KEY
+

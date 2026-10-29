@@ -1084,6 +1084,7 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "laya" },
     { name = "modelscope" },
+    { name = "requests" },
     { name = "streamlit" },
 ]
 
@@ -1093,6 +1094,7 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.162.0" },
     { name = "laya", specifier = ">=0.4.12" },
     { name = "modelscope", specifier = ">=1.40.2" },
+    { name = "requests", specifier = ">=2.34.2" },
     { name = "streamlit", specifier = ">=1.66.0" },
 ]
 
