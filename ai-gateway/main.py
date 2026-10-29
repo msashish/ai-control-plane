@@ -14,10 +14,13 @@ if __name__ == "__main__":
 
     # 3. Natively import your local callback instance object
     from laya_callback import laya_callback
-
-    # 4. Inject the handler object straight into the pipeline tracking array
     import litellm
+
+    # 4. Inject into pipeline arrays and register it globally for config.yaml lookup
     litellm.callbacks = [laya_callback]
+    litellm.input_callback = [laya_callback]
+    litellm.success_callback = [laya_callback]
+    litellm.failure_callback = [laya_callback]
 
     # 5. Bind parameters seamlessly to the system arguments
     config_path = os.path.join(current_dir, "config.yaml")

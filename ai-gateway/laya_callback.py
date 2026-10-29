@@ -1,17 +1,19 @@
 import httpx
 from litellm.integrations.custom_logger import CustomLogger
-from litellm.proxy._types import ProxyException 
+from litellm.exceptions import APIError
 
 class LayaClassifierCallback(CustomLogger):
     def __init__(self):
         self.laya_url = "http://localhost:8085/prompt/classification"
 
-    async def async_pre_call_hook(self, user_api_key_dict, cache_dict, data, call_type):
+    async def async_log_pre_api_call(self, user_api_key_dict, cache_dict, data, call_type):
         messages = data.get("messages", [])
+        print(f"\n[LAYA DEBUG] Pre-API Call: {call_type} with messages: {messages}")
         if not messages:
             return data
             
         user_prompt = messages[-1].get("content", "")
+        print(f"\n[LAYA DEBUG] Evaluating prompt: {user_prompt[:50]}...")
 
         try:
             async with httpx.AsyncClient() as client:
@@ -23,16 +25,26 @@ class LayaClassifierCallback(CustomLogger):
                 
             if response.status_code == 200:
                 laya_output = response.json()
+
+                # --- DISPLAY LAYA OUTPUT CLEARLY ---
+                print("\n" + "="*50)
+                print(f"[LAYA] Full JSON Response: {laya_output}")
+                print(f"[LAYA] Unsafe Value Checked: '{laya_output.get('unsafe')}'")
+                print("="*50 + "\n")
                 
-                # Drop request if unsafe
-                if laya_output.get("unsafe") == "yes":
-                    raise ProxyException(
+                # --- GUARANTEED BLOCKING TRIGGER ---
+                # Normalize string comparison to catch variations ("yes", "Yes", "yes ")
+                is_unsafe = str(laya_output.get("unsafe", "")).strip().lower() == "yes"
+                
+                if is_unsafe:
+                    print("[LAYA TRIGGERED] Unsafe prompt confirmed! Raising APIError to block request...")
+                    raise APIError(
+                        status_code=400,
                         message="Request blocked by Laya security protocol.",
-                        type="security_violation",
-                        param="prompt",
-                        code=400
+                        llm_provider="LayaSecurityGateway"
                     )
                 
+                # Handle routing/metadata additions if clean
                 if "metadata" not in data:
                     data["metadata"] = {}
                 data["metadata"]["laya_rag"] = laya_output.get("rag")
@@ -44,9 +56,11 @@ class LayaClassifierCallback(CustomLogger):
                 else:
                     data["model"] = "qwen-local"
                     
-        except ProxyException:
+        except APIError:
+            # Pass this through cleanly so LiteLLM intercepts it as a terminal routing failure
             raise
         except Exception as e:
+            print(f"[LAYA ERROR] Callback pipeline failure: {str(e)}")
             if "metadata" not in data:
                 data["metadata"] = {}
             data["metadata"]["laya_error"] = str(e)

@@ -12,5 +12,8 @@ dependencies = [
     "streamlit>=1.66.0",
 ]
 
+[tool.fastapi]
+entrypoint = "classifier.main:app"
+
 [tool.uv]
 package = false

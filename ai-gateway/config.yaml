@@ -8,3 +8,5 @@ model_list:
       model: openai/gpt-6.1-sol
       api_key: os.environ/OPENAI_API_KEY
 
+general_settings:
+  callbacks: ["laya_callback.laya_callback"]
