@@ -1,9 +1,8 @@
 model_list:
-  - model_name: my-local-llama
+  - model_name: qwen-local            # The alias you want to call via API
     litellm_params:
-      model: /models/llama-2-7b-chat.gguf
-      model_type: gguf
-      api_base: http://localhost:8080/v1
+      model: ollama/my-qwen          # Tells litellm to use ollama + your registered name
+      api_base: http://localhost:8081 # Points directly to your custom port
   - model_name: gpt-6.1-sol
     litellm_params:
       model: openai/gpt-6.1-sol
