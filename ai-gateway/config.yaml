@@ -1,0 +1,10 @@
+model_list:
+  - model_name: my-local-llama
+    litellm_params:
+      model: /models/llama-2-7b-chat.gguf
+      model_type: gguf
+      api_base: http://localhost:8080/v1
+  - model_name: gpt-6.1-sol
+    litellm_params:
+      model: openai/gpt-6.1-sol
+      api_key: os.environ/OPENAI_API_KEY
