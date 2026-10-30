@@ -12,17 +12,9 @@ if __name__ == "__main__":
     # 2. LOCAL DEV BYPASS: Permit unset master key locally
     os.environ["LITELLM_DANGEROUSLY_PERMIT_WEAK_OR_UNSET_MASTER_KEY"] = "true"
 
-    # 3. Natively import your local callback instance object
-    from laya_callback import laya_callback
-    import litellm
+    # 3. Laya callback is registered vua litellm_settings.callbacks
 
-    # 4. Inject into pipeline arrays and register it globally for config.yaml lookup
-    litellm.callbacks = [laya_callback]
-    litellm.input_callback = [laya_callback]
-    litellm.success_callback = [laya_callback]
-    litellm.failure_callback = [laya_callback]
-
-    # 5. Bind parameters seamlessly to the system arguments
+    # 4. Bind parameters seamlessly to the system arguments
     config_path = os.path.join(current_dir, "config.yaml")
     sys.argv = ["litellm", "--config", config_path, "--port", "4000"]
 

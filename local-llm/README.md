@@ -73,11 +73,11 @@
 
 4. Test inference
 
-    curl http://localhost:8081/completion \
+    curl http://localhost:8081/v1/chat/completions \
         -H "Content-Type: application/json" \
         -d '{
-                "prompt": "What is GGUF?",
-                "n_predict":50
-        }'
+                "model": "my-qwen",
+                "messages": [{"role": "user", "content": "Whats capital of India?"}]
+            }'
         ``
 

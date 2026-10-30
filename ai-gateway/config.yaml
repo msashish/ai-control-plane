@@ -1,12 +1,13 @@
 model_list:
   - model_name: qwen-local            
     litellm_params:
-      model: ollama/my-qwen          
-      api_base: http://localhost:8081 
+      model: openai/my-qwen          
+      api_base: http://localhost:8081/v1
+      api_key: "12345"
   - model_name: gpt-6.1-sol
     litellm_params:
       model: openai/gpt-6.1-sol
       api_key: os.environ/OPENAI_API_KEY
 
-general_settings:
-  callbacks: ["laya_callback.laya_callback"]
+litellm_settings:
+  callbacks: "laya_callback.laya_callback"

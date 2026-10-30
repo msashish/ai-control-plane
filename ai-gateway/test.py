@@ -8,6 +8,7 @@ def test_prompt_with_litellm(prompt_text, test_label):
     try:
         # Prefix the model with 'openai/' or 'litellm_proxy/' so the SDK knows 
         # it is talking to a compliant OpenAI-Compatible Gateway endpoint.
+        #litellm.turn_on_debug()  # Optional: Turn on debug logging for detailed output
         response = litellm.completion(
             model="openai/qwen-local",         # Added 'openai/' prefix here
             api_base="http://localhost:4000", # Targets your local proxy gateway
@@ -15,16 +16,16 @@ def test_prompt_with_litellm(prompt_text, test_label):
             messages=[
                 {"role": "user", "content": prompt_text}
             ],
-            timeout=5.0
+            timeout=60.0
         )
         
         # Print the success response from Ollama
         print("\n[SUCCESS] Response from Ollama:")
         print(response.choices[0].message.content)
         
-    except litellm.exceptions.APIError as e:
+    except (litellm.exceptions.BadRequestError) as e:
         # Catches the custom block raised by your Laya callback
-        print(f"\n[BLOCKED] Gateway caught a violation as expected!")
+        print(f"\n[BLOCKED] Gateway caught a violation !")
         print(f"Status Code: {getattr(e, 'status_code', '400')}")
         print(f"Response Message: {str(e)}")
         
