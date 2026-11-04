@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
+import os
 
 try:
     from .router import route
@@ -19,6 +20,10 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 
 @app.post("/prompt/classification")
 def classify_prompt(payload: PromptRequest):
@@ -26,4 +31,5 @@ def classify_prompt(payload: PromptRequest):
 
 if __name__ == "__main__":
     # Set your custom port here
-    uvicorn.run("main:app", host="127.0.0.1", port=8085, reload=True)
+    reload_enabled = os.getenv("CLASSIFIER_RELOAD", "false").lower() == "true"
+    uvicorn.run("main:app", host="127.0.0.1", port=8085, reload=reload_enabled)

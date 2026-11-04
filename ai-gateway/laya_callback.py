@@ -20,7 +20,7 @@ class LayaClassifierCallback(CustomLogger):
         print(f"\n[LAYA DEBUG] Evaluating prompt: {user_prompt[:50]}...")
 
         try:
-            async with httpx.AsyncClient() as client:
+            async with httpx.AsyncClient(trust_env=False) as client:
                 response = await client.post(
                     self.laya_url, 
                     json={"prompt": user_prompt}, 
@@ -63,16 +63,17 @@ class LayaClassifierCallback(CustomLogger):
             # Pass this through cleanly so LiteLLM intercepts it as a terminal routing failure
             raise
         except Exception as e:
-            print(f"[LAYA ERROR] Callback pipeline failure: {str(e)}")
+            error_msg = f"{type(e).__name__} occurred during Laya callback: {str(e)}"
+            print(f"[LAYA ERROR] Callback pipeline failure: {error_msg}")
             if "metadata" not in data:
                 data["metadata"] = {}
-            data["metadata"]["laya_error"] = str(e)
+            data["metadata"]["laya_error"] = error_msg
             data["model"] = "qwen-local"
             raise HTTPException(
                 status_code=500,
                 detail={"error": f"Internal error in Laya callback: {str(e)}"}
             )
-            
+
         return data
 
 # Create the instance to be imported

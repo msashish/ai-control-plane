@@ -8,14 +8,12 @@
 
 ## Local test
 
-    cd local-llm
-    make run-ollama
+Pre-requisites: `uv`, `curl` and model gguf at `local-llm/models/qwen.gguf`
 
-    cd classifier
-    python main.py
-
-    cd ai-gateway
-    python main.py
-
-    cd ai-gateway
-    python test.py
+From repo root:
+    make
+        up                 Start llm (ollama) -> classifier -> gateway -> ui
+        down               Stop all services
+        restart            down + up
+        test               Run ai-gateway/tests
+        status             Show status of all services
