@@ -10,10 +10,12 @@
 
 Pre-requisites: `uv`, `curl` and model gguf at `local-llm/models/qwen.gguf`
 
+```bash
 From repo root:
-    make
-        up                 Start llm (ollama) -> classifier -> gateway -> ui
-        down               Stop all services
-        restart            down + up
-        test               Run ai-gateway/tests
-        status             Show status of all services
+make
+    up                 Start llm (ollama) -> classifier -> gateway -> ui
+    down               Stop all services
+    restart            down + up
+    test               Run ai-gateway/tests
+    status             Show status of all services
+```
