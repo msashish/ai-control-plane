@@ -1,0 +1,44 @@
+.row {
+    display: flex;
+}
+
+.bubble {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.45;
+}
+
+.user {
+    justify-content: flex-end;
+
+    .bubble {
+        background-color: var(--blue-solid);
+        color: #fff;
+        border-bottom-right-radius: 4px;
+    }
+}
+
+.assistant .bubble {
+    background: var(--surface);
+    color: var(--text-h);
+    border-bottom-left-radius: 4px;
+}
+
+.error .bubble {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid var(--error-border);
+}
+
+.blocked .bubble {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    border: 1px solid var(--warning-border);
+
+    &::before {
+        content: "⚠️ ";
+    }
+}

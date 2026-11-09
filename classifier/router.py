@@ -33,3 +33,8 @@ def route(prompt, questions=questions):
         question_id: result["answers"][question_id]["choice"]
         for question_id in questions
     }
+
+
+def warm_up():
+    """Warm up the router by running a test prompt."""
+    route("warm-up")

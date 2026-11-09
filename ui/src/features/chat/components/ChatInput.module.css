@@ -1,0 +1,39 @@
+.form {
+    display: flex;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+}
+
+.textarea {
+    flex: 1;
+    resize: none;
+    font: inherit;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-h);
+
+    &:focus {
+        outline: 2px solid var(--blue-border);
+        outline-offset: 0;
+    }
+}
+
+.sendButton {
+    font: inherit;
+    font-size: 16px;
+    padding: 0px 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--blue-solid);
+    color: #fff;
+    cursor: pointer;
+
+   &:disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+}

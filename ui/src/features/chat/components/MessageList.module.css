@@ -1,0 +1,13 @@
+.list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.empty {
+    margin: auto;
+    color: var(--text);
+}

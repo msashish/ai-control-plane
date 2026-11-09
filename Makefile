@@ -31,7 +31,7 @@ CURL_CONNECT_TIMEOUT 	?= 2
 CURL_MAX_TIME 			?= 5
 
 # Use LLMLite's local bundled cost map
-# export LITELLM_LOCAL_MODEL_COST_MAP := True
+export LITELLM_LOCAL_MODEL_COST_MAP := True
 
 # wait_for <name> <url> <timeout> <logfile>
 define wait_for
@@ -64,8 +64,8 @@ define start_py
 	$(call wait_for,${1},${3},${HEALTH_TIMEOUT},${LOG_DIR}/${1}.log)
 endef
 
-# stop_proc <name> : kills the whole process tree (e.g. uv -> python -> uvicorn workers,)
-define stop_proc
+# stop_py <name> : kills the whole process tree (e.g. uv -> python -> uvicorn reload workers,)
+define stop_py
 	@if [ -f $(RUN_DIR)/$(1).pid ]; then \
 		pid=$$(cat $(RUN_DIR)/$(1).pid) ; \
 		kill_tree() { \
@@ -153,21 +153,21 @@ llm-recreate:
 	@OLLAMA_HOST=$(OLLAMA_HOST_ADDR) $(OLLAMA) create $(OLLAMA_MODEL_NAME) -f $(OLLAMA_MODELFILE)
 
 stop-llm:
-	$(call stop_proc,llm)
+	$(call stop_py,llm)
 
 # ---- classifier ----
 classifier:
 	$(call start_py,classifier,classifier,$(CLASSIFIER_HEALTH_URL),$(CLASSIFIER_PORT))
 
 stop-classifier:
-	$(call stop_proc,classifier)
+	$(call stop_py,classifier)
 
 # ---- gateway ----
 gateway:
 	$(call start_py,gateway,ai-gateway,$(GATEWAY_HEALTH_URL),$(GATEWAY_PORT))
 
 stop-gateway:
-	$(call stop_proc,gateway)	
+	$(call stop_py,gateway)	
 
 test:
 	@echo "Running tests..."

@@ -1,19 +1,26 @@
 import uvicorn
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from pydantic import BaseModel
 import os
 
 try:
-    from .router import route
+    from .router import route, warm_up
 except ImportError:  # pragma: no cover - script execution fallback
-    from router import route
+    from router import route, warm_up
 
 
 class PromptRequest(BaseModel):
     prompt: str
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Uvicorn binds port only after startup completes, so /health is unreachable until model is loaded
+    warm_up()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/")

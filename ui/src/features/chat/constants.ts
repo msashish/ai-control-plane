@@ -1,0 +1,1 @@
+export const BLOCKED_MESSAGE = "This prompt violates security policy and is blocked."

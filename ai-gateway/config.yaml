@@ -2,7 +2,7 @@ model_list:
   - model_name: qwen-local            
     litellm_params:
       model: openai/my-qwen          
-      api_base: http://localhost:8081/v1
+      api_base: http://localhost:8081/v1  # Ollama only serves OpenAI API under /v1
       api_key: "12345"
   - model_name: gpt-6.1-sol
     litellm_params:

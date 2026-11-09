@@ -1,0 +1,42 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --surface: #f4f3ec;
+
+  /* Blue brand palette */
+  --blue-bg: #e0f2fe;
+  --blue-border: #7dd3fc;
+  --blue-accent: #0369a1;
+  --blue-solid: #0369a1;
+
+  /* status colors */
+  --error-bg: rgba(220, 38, 38, 0.1);
+  --error-border: rgba(220, 38, 38, 0.4);
+  --error-text: #dc2626;
+  --warning-bg: rgba(217, 119, 6, 0.12);
+  --warning-border: rgba(217, 119, 6, 0.5);
+  --warning-text: #92400e;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #9ca3af;
+        --text-h: #f3f4f6;
+        --bg: #16171d;
+        --border: #2e303a;
+        --surface: #1f2028;
+
+        --blue-bg: #0c2a3d;
+        --blue-border: #0369a1;
+        --blue-accent: #7dd3fc;
+        --blue-solid: #0369a1;
+
+        --warning-text: #fbbf24;
+    }
+}
